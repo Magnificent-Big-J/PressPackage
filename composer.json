@@ -1,0 +1,15 @@
+{
+    "name": "rainwaves/press",
+    "description": "An elegant markdown-powered blog for the Laravel framework.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joel Mnisi",
+            "email": "joel.mnisi@protonmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^5.2"
+    }
+}
