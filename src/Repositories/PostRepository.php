@@ -2,6 +2,7 @@
 
 namespace rainwaves\Press\Repositories;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use rainwaves\Press\Post;
 
@@ -13,7 +14,14 @@ class PostRepository
             'slug' => Str::slug($post['title']),
             'title' => $post['title'],
             'body' => $post['body'],
-            'extra' => $post['extra'] ?? json_encode([]),
+            'extra' => $this->extra($post),
         ]);
+    }
+    private function extra($post)
+    {
+        $extra = (array)json_decode($post['extra']);
+        $attributes = Arr::except($post, ['title', 'body', 'extra', 'identifier']);
+
+        return json_encode(array_merge($extra, $attributes));
     }
 }

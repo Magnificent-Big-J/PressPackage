@@ -48,7 +48,7 @@ class PressFileParser
     protected function processFields()
     {
         foreach ($this->data as $field => $value) {
-            $class = "rainwaves\\Press\\Fields\\" . Str::title($field);
+            $class = $this->getFields(Str::title($field));
             if (!class_exists($class) && !method_exists($class, 'process')) {
                 $class = "rainwaves\\Press\\Fields\\Extra";
             }
@@ -56,6 +56,17 @@ class PressFileParser
                 $this->data,
                 $class::process($field, $value, $this->data)
             );
+        }
+    }
+    private function getFields($field)
+    {
+        foreach (\rainwaves\Press\Facades\Press::availableFields() as $availableField) {
+            $class = new ReflectionClass($availableField);
+
+            if ($class->getShortName() == $field) {
+                return $class->getName();
+            }
+
         }
     }
 }
