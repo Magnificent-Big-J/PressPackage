@@ -1,22 +1,32 @@
 <?php
 
-
 namespace rainwaves\Press\Drivers;
 
-
 use Illuminate\Support\Facades\File;
-use rainwaves\Press\PressFileParser;
+use rainwaves\Press\Exceptions\FileDriverDirectoryNotFoundException;
 
-class FileDriver
+
+class FileDriver extends Driver
 {
     public function fetchPosts()
     {
         $files = File::files(config('press.php'));
-        $posts = array();
+
         foreach ($files as $file) {
-            $posts[] = (new PressFileParser($file->getPathname()))->getData();
+            $this->parse($file->getPathname(), $file->getFilename());
         }
 
-        return $posts;
+        return $this->posts;
     }
+    protected function validatedSource()
+    {
+        if (!File::exists($this->config('path'))) {
+            throw new FileDriverDirectoryNotFoundException(
+                'Director: at \'' . $this->config['path'] . '\' does not exist. ' .
+                'Check the directory path in the config file.'
+            );
+        }
+    }
+
+
 }
