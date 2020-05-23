@@ -3,8 +3,9 @@
 
 namespace rainwaves\Press;
 
+use Illuminate\Database\Eloquent\Model;
 
-class Post
+class Post extends Model
 {
-
+    protected $guarded = [];
 }

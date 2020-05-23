@@ -4,7 +4,7 @@
 namespace rainwaves\Press\Fields;
 
 
-class Title
+class Title extends FieldContract
 {
 
 }

@@ -1,10 +1,8 @@
 <?php
 
-
 namespace rainwaves\Press\Fields;
 
-
-class Description
+class Description extends FieldContract
 {
 
 }

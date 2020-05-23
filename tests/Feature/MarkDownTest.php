@@ -3,14 +3,16 @@
 
 namespace rainwaves\Press\Tests\Feature;
 
+use rainwaves\Press\MarkDownParser;
+use rainwaves\Press\Tests\TestCase;
 
-use Orchestra\Testbench\TestCase;
-
-class InitialTest extends TestCase
+class MarkDownTest extends TestCase
 {
     /** @test **/
-    public function my_first_test()
+    public function simple_mark_down_is_parsed()
     {
-        $this->assertTrue(true);
+        $this->assertEquals('<h1>Heading</h1>',
+            MarkDownParser::parse('# Heading'));
+
     }
 }
