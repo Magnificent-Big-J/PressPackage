@@ -3,6 +3,7 @@
 namespace rainwaves\Press;
 
 use Illuminate\Support\ServiceProvider;
+use rainwaves\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class PressBaseServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ .'/../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'press');
+        $this->registerFacades();
         $this->registerRoutes();
     }
     protected function registerPublishing(): void
@@ -43,6 +45,12 @@ class PressBaseServiceProvider extends ServiceProvider
           'prefix' => Press::path(),
           'namespace' => 'rainwaves\Press\Http\Controllers'
         ];
+    }
+    protected function registerFacades()
+    {
+        $this->app->singleton('Press', function (){
+            return new \rainwaves\Press\Press();
+        });
     }
 
 }
